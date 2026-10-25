@@ -72,7 +72,7 @@ public abstract class PreventAccidentalTapMixin {
 			return;
 		}
 		long now = System.currentTimeMillis();
-		if (now - pat$lastChestAttackMs < 800L) {
+		if (now - pat$lastChestAttackMs < 500L) {
 			if (DEBUG) {
 				client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Throttled (too soon)"));
 			}
