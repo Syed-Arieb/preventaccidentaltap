@@ -1,9 +1,15 @@
 # PreventAccidentalTap
 
-## Setup
+Fabric client mod for Minecraft 26.2 that throttles repeated left-clicks on chests while holding shears.
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+## Download
 
-## License
+Latest release: https://github.com/Syed-Arieb/preventaccidentaltap/releases/latest
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## Features
+- Only applies when main hand holds shears (renamed/lore variants included).
+- Throttles rapid taps on single and double chests.
+- Debug logging toggle in code (`DEBUG`).
+
+## Build
+`./gradlew build`
