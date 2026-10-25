@@ -17,7 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public abstract class PreventAccidentalTapMixin {
 
-	private static final boolean DEBUG = false;
+	public static boolean DEBUG = false;
+	public static long COOLDOWN_MS = 500L;
 	private static long pat$lastChestAttackMs = 0L;
 
 	@org.spongepowered.asm.mixin.gen.Accessor("missTime")
@@ -72,7 +73,7 @@ public abstract class PreventAccidentalTapMixin {
 			return;
 		}
 		long now = System.currentTimeMillis();
-		if (now - pat$lastChestAttackMs < 500L) {
+		if (now - pat$lastChestAttackMs < COOLDOWN_MS) {
 			if (DEBUG) {
 				client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Throttled (too soon)"));
 			}
