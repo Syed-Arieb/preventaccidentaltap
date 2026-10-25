@@ -11,10 +11,12 @@ import net.minecraft.network.chat.Component;
 public class PreventAccidentalTapClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
+		PreventAccidentalTapConfig.load();
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, buildContext) -> {
 			dispatcher.register(ClientCommands.literal("pat-debug")
 				.executes(ctx -> {
 					PreventAccidentalTapConfig.DEBUG = !PreventAccidentalTapConfig.DEBUG;
+					PreventAccidentalTapConfig.save();
 					ctx.getSource().sendFeedback(Component.literal("PAT debug: " + PreventAccidentalTapConfig.DEBUG));
 					return 1;
 				}));
@@ -23,6 +25,7 @@ public class PreventAccidentalTapClient implements ClientModInitializer {
 					.executes(ctx -> {
 						int ms = com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "ms");
 						PreventAccidentalTapConfig.COOLDOWN_MS = ms;
+						PreventAccidentalTapConfig.save();
 						ctx.getSource().sendFeedback(Component.literal("PAT cooldown: " + ms + "ms"));
 						return 1;
 					})));
