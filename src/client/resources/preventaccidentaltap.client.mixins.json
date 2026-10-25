@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.purpur.pat.client.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"ExampleClientMixin",
+		"PreventAccidentalTapMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
