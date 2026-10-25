@@ -25,6 +25,9 @@ public abstract class PreventAccidentalTapMixin {
 
 	@Inject(method = "continueAttack", at = @At("HEAD"), cancellable = true)
 	private void pat$throttleHeldChestAttacks(boolean destroying, CallbackInfo ci) {
+		if (!destroying) {
+			return;
+		}
 		Minecraft client = (Minecraft) (Object) this;
 		if (client.hitResult == null || client.hitResult.getType() != HitResult.Type.BLOCK) {
 			return;
