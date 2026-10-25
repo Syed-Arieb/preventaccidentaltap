@@ -1,10 +1,8 @@
 package com.purpur.pat.client.mixin;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -32,8 +30,7 @@ public abstract class PreventAccidentalTapMixin {
 		BlockHitResult blockHit = (BlockHitResult) client.hitResult;
 		BlockPos pos = blockHit.getBlockPos();
 		BlockState state = client.level.getBlockState(pos);
-		Block block = state.getBlock();
-		if (!(block instanceof ChestBlock)) {
+		if (!(state.getBlock() instanceof ChestBlock)) {
 			return;
 		}
 		Player player = client.player;
