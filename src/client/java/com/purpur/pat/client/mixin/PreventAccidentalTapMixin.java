@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public abstract class PreventAccidentalTapMixin {
 
+	private static long pat$lastChestAttackMs = 0L;
+
 	@org.spongepowered.asm.mixin.gen.Accessor("missTime")
 	public abstract int getLeftClickCounter();
 
@@ -37,8 +39,15 @@ public abstract class PreventAccidentalTapMixin {
 		if (player.getMainHandItem().isEmpty()) {
 			return;
 		}
+		long now = System.currentTimeMillis();
+		if (now - pat$lastChestAttackMs < 250L) {
+			cir.setReturnValue(false);
+			return;
+		}
 		if (getLeftClickCounter() > 0) {
 			cir.setReturnValue(false);
+			return;
 		}
+		pat$lastChestAttackMs = now;
 	}
 }
