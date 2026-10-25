@@ -3,6 +3,7 @@ package com.purpur.pat.client.mixin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ShearsItem;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -40,7 +41,7 @@ public abstract class PreventAccidentalTapMixin {
 			client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Chest click detected"));
 		}
 		Player player = client.player;
-		if (player.getMainHandItem().isEmpty()) {
+		if (!(player.getMainHandItem().getItem() instanceof ShearsItem)) {
 			return;
 		}
 		long now = System.currentTimeMillis();
