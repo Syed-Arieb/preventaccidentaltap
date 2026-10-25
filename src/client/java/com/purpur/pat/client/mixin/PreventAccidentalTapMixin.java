@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public abstract class PreventAccidentalTapMixin {
 
+	private static final boolean DEBUG = true;
 	private static long pat$lastChestAttackMs = 0L;
 
 	@org.spongepowered.asm.mixin.gen.Accessor("missTime")
@@ -35,12 +36,18 @@ public abstract class PreventAccidentalTapMixin {
 		if (!(state.getBlock() instanceof ChestBlock)) {
 			return;
 		}
+		if (DEBUG) {
+			client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Chest click detected"));
+		}
 		Player player = client.player;
 		if (player.getMainHandItem().isEmpty()) {
 			return;
 		}
 		long now = System.currentTimeMillis();
 		if (now - pat$lastChestAttackMs < 250L) {
+			if (DEBUG) {
+				client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Throttled (too soon)"));
+			}
 			cir.setReturnValue(false);
 			return;
 		}
