@@ -8,6 +8,9 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+
+import com.purpur.pat.client.PreventAccidentalTapConfig;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,8 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public abstract class PreventAccidentalTapMixin {
 
-	public static boolean DEBUG = false;
-	public static long COOLDOWN_MS = 500L;
 	private static long pat$lastChestAttackMs = 0L;
 
 	@org.spongepowered.asm.mixin.gen.Accessor("missTime")
@@ -44,7 +45,7 @@ public abstract class PreventAccidentalTapMixin {
 		if (!(client.player.getMainHandItem().getItem() instanceof ShearsItem)) {
 			return;
 		}
-		if (DEBUG) {
+		if (PreventAccidentalTapConfig.DEBUG) {
 			client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Held attack blocked"));
 		}
 		ci.cancel();
@@ -65,7 +66,7 @@ public abstract class PreventAccidentalTapMixin {
 		if (!(state.getBlock() instanceof ChestBlock)) {
 			return;
 		}
-		if (DEBUG) {
+		if (PreventAccidentalTapConfig.DEBUG) {
 			client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Chest click detected"));
 		}
 		Player player = client.player;
@@ -73,8 +74,8 @@ public abstract class PreventAccidentalTapMixin {
 			return;
 		}
 		long now = System.currentTimeMillis();
-		if (now - pat$lastChestAttackMs < COOLDOWN_MS) {
-			if (DEBUG) {
+		if (now - pat$lastChestAttackMs < PreventAccidentalTapConfig.COOLDOWN_MS) {
+			if (PreventAccidentalTapConfig.DEBUG) {
 				client.player.sendSystemMessage(net.minecraft.network.chat.Component.literal("[PAT] Throttled (too soon)"));
 			}
 			cir.setReturnValue(false);
