@@ -3,9 +3,9 @@
 	"id": "preventaccidentaltap",
 	"version": "${version}",
 	"name": "PreventAccidentalTap",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Intercepts and throttles mouse inputs when interacting with chests, enforcing a single tap per click while holding an item.",
 	"authors": [
-		"Me!"
+		"Purpur"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
