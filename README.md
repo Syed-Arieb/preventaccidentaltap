@@ -1,18 +1,32 @@
 # PreventAccidentalTap
 
-Fabric client mod for Minecraft 26.2 that throttles repeated left-clicks on chests while holding shears.
+Fabric client mod for Minecraft 26.2.
 
-## Why
-This mod is specifically made for **ExtremeCraft** to tackle the problem of wasting **Magic Wand** durability points because of accidental double-taps on chests.
+## What it does
+
+It stops extra left clicks on chests when you hold shears.
+This helps in ExtremeCraft, where a second tap on a chest can waste Magic Wand durability.
 
 ## Download
 
-Latest release: https://github.com/Syed-Arieb/preventaccidentaltap/releases/latest
+Latest release:
+https://github.com/Syed-Arieb/preventaccidentaltap/releases/latest
 
-## Features
-- Only applies when main hand holds shears (renamed/lore variants included).
-- Throttles rapid taps on single and double chests.
-- Debug logging toggle in code (`DEBUG`).
+## How it works
+
+- Only works when your main hand holds shears.
+- Works on single and double chests.
+- First tap goes through.
+- Extra taps within the cooldown are blocked.
+- Holding left click does not repeat taps.
+
+## In game commands
+
+- /pat-debug toggles debug messages.
+- /pat-cooldown <ms> sets the delay between taps.
+
+Settings are saved to config/preventaccidentaltap.properties.
 
 ## Build
-`./gradlew build`
+
+./gradlew build
