@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Minecraft.class)
 public abstract class PreventAccidentalTapMixin {
 
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 	private static long pat$lastChestAttackMs = 0L;
 
 	@org.spongepowered.asm.mixin.gen.Accessor("missTime")
